@@ -211,10 +211,10 @@ $pdo = Database::DatabaseConnection();
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    ManageRecord("ADD", "1010");
+    ManageRecord("ADD", "1020");
 }
 
-// ManageRecord("EDIT", "1020");
+// ManageRecord("DELETE", "1020");
 
 function ManageRecord($query, $id)
 {
@@ -223,7 +223,18 @@ function ManageRecord($query, $id)
             AddData($id);
             break;
         case "EDIT":
-            EditData($id, "Genshin", "Ation", "2021-10-10", "100", "Hours", "Free to Play", "res/images/KLTL Logo.png", "res/images/KLTL Logo.png", "https://www.facebook.com/", "https://www.youtube.com/", "https://www.instagram.com/");
+            EditData($id, 
+                    "Genshin",
+                    "Ation",
+                    "2021-10-10", 
+                    "100", 
+                    "Hours", 
+                    "Free to Play", 
+                    "res/images/KLTL Logo.png", 
+                    "res/images/KLTL Logo.png", 
+                    "https://www.facebook.com/", 
+                    "https://www.youtube.com/", 
+                    "https://www.instagram.com/");
             break;
         case "DELETE":
             DeleteRecord($id);
