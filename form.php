@@ -26,7 +26,7 @@ $pdo = Database::DatabaseConnection();
 
                         <div class="col-md-12 text-center">
                             <h1>Game Publishing</h1>
-                            
+
                         </div>
 
                         <!-- Game Information -->
@@ -211,22 +211,23 @@ $pdo = Database::DatabaseConnection();
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    ManageRecord("ADD", "1020");
+    ManageRecord("ADD", "1010");
 }
 
+// ManageRecord("EDIT", "1020");
 
-function ManageRecord($query, $id) 
+function ManageRecord($query, $id)
 {
     switch ($query) {
-    case "ADD":
-        AddData($id);
-        break;
-    case "EDIT":
-        EditData();
-        break;
-    case "DELETE":
-        DeleteRecord($id);
-        break;
+        case "ADD":
+            AddData($id);
+            break;
+        case "EDIT":
+            EditData($id, "Genshin", "Ation", "2021-10-10", "100", "Hours", "Free to Play", "res/images/KLTL Logo.png", "res/images/KLTL Logo.png", "https://www.facebook.com/", "https://www.youtube.com/", "https://www.instagram.com/");
+            break;
+        case "DELETE":
+            DeleteRecord($id);
+            break;
     }
 }
 
@@ -246,7 +247,7 @@ function AddData($IDnum)
     $YoutubeLink = (isset($_POST['YoutubeLink'])) ? $_POST['YoutubeLink'] : "";
     $InstagramLink = (isset($_POST['InstagramLink'])) ? $_POST['InstagramLink'] : "";
 
-    $sql = "INSERT INTO mytables 
+    $sql = "INSERT INTO mytabless 
     (
         ID,
         GameTitle,
@@ -281,52 +282,36 @@ function AddData($IDnum)
 }
 
 // -- UPDATE --
-function EditData()
+function EditData($iD, $gameTitle, $gameGenre, $dateRelease, $gamePlayTime, $time, $gameDescription, $gameIcon, $gameFile, $fBLink, $youtubeLink, $instagramLink)
 {
-    $ID = (isset($_POST['ID'])) ? $_POST['ID'] : "1010 ";
-    $GameTitle = (isset($_POST['txtGameTitle'])) ? $_POST['txtGameTitle'] : "";
-    $GameGenre = (isset($_POST['txtGameGenre'])) ? $_POST['txtGameGenre'] : "";
-    $DateRelease = (isset($_POST['txtDateRelease'])) ? $_POST['txtDateRelease'] : "";
-    $GamePlayTime = (isset($_POST['txtPlayNum'])) ? $_POST['txtPlayNum'] : "";
-    $Time = (isset($_POST['txtTime'])) ? $_POST['txtTime'] : "";
-    $GameDescription = (isset($_POST['txtGameDescription'])) ? $_POST['txtGameDescription'] : "";
-    $GameIcon = (isset($_POST['txtIcon'])) ? $_POST['txtIcon'] : "";
-    $GameFile = (isset($_POST['txtGameFile'])) ? $_POST['txtGameFile'] : "";
-    $FBLink = (isset($_POST['FBLink'])) ? $_POST['FBLink'] : "";
-    $YoutubeLink = (isset($_POST['YoutubeLink'])) ? $_POST['YoutubeLink'] : "";
-    $InstagramLink = (isset($_POST['InstagramLink'])) ? $_POST['InstagramLink'] : "";
 
+    $ID = (isset($_POST['ID'])) ? $_POST['ID'] : $iD;
+    $GameTitle = (isset($_POST['txtGameTitle'])) ? $_POST['txtGameTitle'] : $gameTitle;
+    $GameGenre = (isset($_POST['txtGameGenre'])) ? $_POST['txtGameGenre'] : $gameGenre;
+    $DateRelease = (isset($_POST['txtDateRelease'])) ? $_POST['txtDateRelease'] : $dateRelease;
+    $GamePlayTime = (isset($_POST['txtPlayNum'])) ? $_POST['txtPlayNum'] : $gamePlayTime;
+    $Time = (isset($_POST['txtTime'])) ? $_POST['txtTime'] : $time;
+    $GameDescription = (isset($_POST['txtGameDescription'])) ? $_POST['txtGameDescription'] : $gameDescription;
+    $GameIcon = (isset($_POST['txtIcon'])) ? $_POST['txtIcon'] : $gameIcon;
+    $GameFile = (isset($_POST['txtGameFile'])) ? $_POST['txtGameFile'] : $gameFile;
+    $FBLink = (isset($_POST['FBLink'])) ? $_POST['FBLink'] : $fBLink;
+    $YoutubeLink = (isset($_POST['YoutubeLink'])) ? $_POST['YoutubeLink'] : $youtubeLink;
+    $InstagramLink = (isset($_POST['InstagramLink'])) ? $_POST['InstagramLink'] : $instagramLink;
 
-    $sql = "update mytables 
-    (
-        ID,
-        GameTitle,
-        ReleaseDate,
-        GameGenre,
-        GamePlayTime,
-        Horology_Time,
-        GameDescription,
-        GameIcon,
-        GameFile,
-        FBLink,
-        YTLink,
-        InstaLink
-    )
-    VALUES
-    (
-        '$ID',
-        '$GameTitle',
-        '$DateRelease',
-        '$GameGenre',
-        '$GamePlayTime',
-        '$Time',
-        '$GameDescription',
-        '$GameIcon',
-        '$GameFile',
-        '$FBLink',
-        '$YoutubeLink',
-        '$InstagramLink'
-    )";
+    $sql = "UPDATE mytabless 
+        SET GameTitle = '$GameTitle',
+            ReleaseDate = '$DateRelease',
+            GameGenre = '$GameGenre',
+            GamePlayTime = '$GamePlayTime',
+            Horology_Time = '$Time',
+            GameDescription = '$GameDescription',
+            GameIcon = '$GameIcon',
+            GameFile = '$GameFile',
+            FBLink = '$FBLink',
+            YTLink = '$YoutubeLink',
+            InstaLink = '$InstagramLink'
+        WHERE ID = '$ID'";
+
     Database::ManageRecord($GLOBALS['pdo'], $sql);
     echo "The data has been edited";
 }
@@ -336,7 +321,7 @@ function DeleteRecord($IDnum)
 {
     $ID = (isset($_POST['ID'])) ? $_POST['ID'] : $IDnum;
 
-    $sql = "delete from mytables
+    $sql = "delete from mytabless
             where ID = '$ID'";
     Database::ManageRecord($GLOBALS['pdo'], $sql);
     echo 'Deleted Record';
