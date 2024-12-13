@@ -211,10 +211,10 @@ $pdo = Database::DatabaseConnection();
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    ManageRecord("ADD", "1020");
+    ManageRecord("ADD", "1010");
 }
 
-// ManageRecord("DELETE", "1020");
+ManageRecord("EDIT", "1010");
 
 function ManageRecord($query, $id)
 {
